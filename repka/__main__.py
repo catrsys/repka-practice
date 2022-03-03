@@ -1,5 +1,4 @@
 import argparse
-from distutils.log import WARN
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
