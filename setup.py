@@ -8,4 +8,5 @@ setup(
         "beautifulsoup4==4.10.0",
         "requests==2.27.1",
     ],
+    python_requires='>=3.9'
 )
