@@ -1,7 +1,9 @@
 import argparse
+from distutils.log import WARN
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from termcolor import colored
 
 from . import extractor, selecter
 
@@ -33,6 +35,9 @@ REPKA_TEXT = r"""
 
 REPKA_LOGO = REPKA_IMAGE + REPKA_TEXT
 
+SUCCESS = "[" + colored("+", "green") + "] "
+WARNING = "[" + colored("*", "yellow") + "] "
+ERROR = "[" + colored("!", "red") + "] "
 
 def main() -> None:
     """main"""
@@ -65,15 +70,23 @@ def main() -> None:
     with TemporaryDirectory() as tempdir:
         tempdir_path = Path(tempdir)
 
+        print(WARNING + "Extracting files...")
+
         extractor.download_static_files(args.uri, tempdir_path, extensions)
+
+
+        print(SUCCESS + "Extraction finished.")
+        print(WARNING + "Searching for commits and tags...")
 
         from_commit, to_commit = selecter.get_commits_range(tempdir_path, repo_folder)
 
         tags = selecter.get_tags_by_range(from_commit, to_commit, repo_folder)
 
-    print(f"Commits range: {from_commit}..{to_commit}")
+        print(SUCCESS + "Done.\n")
+
+    print(f"{SUCCESS}Commits range: {from_commit}..{to_commit}")
     if tags:
-        print(f"Tags: {', '.join(tags)}")
+        print(f"{SUCCESS}Tags: {', '.join(tags)}")
 
 
 if __name__ == "__main__":
@@ -81,5 +94,5 @@ if __name__ == "__main__":
         main()
 
     except Exception as exc:
-        print(f"Error: {exc}", file=sys.stderr)
+        print(f"{ERROR}Error: {exc}", file=sys.stderr)
         sys.exit(1)
