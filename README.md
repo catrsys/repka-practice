@@ -32,3 +32,17 @@ optional arguments:
 Target `URI` and `path` to the local copy of repository are the only required parameters.
 
 If `folder` is specified, `Repka` will try to compare files from that subfolder of the repository.
+
+`Extensions` argument is used to filter files being compared by their types.
+
+## Example
+
+```text
+python3.9 -m repka -u "https://kot-pes.com/" -p "../wp-polls/"
+[*] Extracting files...
+[+] Extraction finished.
+[*] Searching for commits and tags...
+[+] Done.
+
+[+] Commits range: 028a5e0407c63bce0771d6fe82cf6dded1076f9f..9b52a5ae7ded437d5744dcb4b1798752a6754e06
+```
