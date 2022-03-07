@@ -42,6 +42,7 @@ def main() -> None:
     """main"""
 
     parser = argparse.ArgumentParser(
+        prog="python3.9 -m repka",
         description=f"{REPKA_LOGO}\n"
         "A tool for open-source software version detection by its repository.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
